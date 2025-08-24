@@ -37,7 +37,7 @@ sudo apt-get install device-tree-compiler
 1. 访问 [linux-xlnx](https://github.com/Xilinx/linux-xlnx/tags?after=xilinx-v2023.1) 官网下载 Linux 源码，下载时最好下载 ```zynqmp-soc-for-v6.3```。
 2. ```tar -xvf zynqmp-soc-for-v6.3``` 解压源码
 3. 进入解压好的目录，执行下述命令使用默认配置，```make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig``` 
-4. 进行编译：```make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image -j$(nproc)```
+4. 进行编译：```make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc)```
 5. 编译完成后，目录中 ```arch/arm64/boot/Image``` 即为所需镜像。
 ## 启用 QEMU 仿真
 1. 激活 Petalinux 环境，即在Petalinux 安装目录中 ```source settings.sh```。
