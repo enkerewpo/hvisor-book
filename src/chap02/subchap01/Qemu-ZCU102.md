@@ -42,9 +42,15 @@ sudo apt-get install device-tree-compiler
 ## 启用 QEMU 仿真
 1. 激活 Petalinux 环境，即在Petalinux 安装目录中 ```source settings.sh```。
 2. 进入 ```xilinx-zcu102-2024.1``` 文件夹，使用下述命令即可在 QEMU仿真的 ZCU102上启动 hvisor，其中的文件路径需要按照自己的实际情况进行修改。
+
+<div class="warning">
+    <h3>请注意</h3>
+    <p> 由于 petalinux 使用的 qemu 在挂载 SD 卡镜像的时候强制要求是 2 的次方大小，而 BSP 提供的 prebuilt 中的 rootfs.ext4 往往不是 2 的次方大小，需要使用 ```resize2fs``` 等工具进行调整。
+</div>
+
 ```
 # QEMU 参数传递
-petalinux-boot --qemu --prebuilt 2 --qemu-args '-device loader,file=hvisor,addr=0x40400000,force-raw=on -device loader,
+petalinux-boot --qemu --prebuilt 2 --qemu-args '-device loader,file=hvisor.bin,addr=0x40400000,force-raw=on -device loader,
 file=zcu102-root-aarch64.dtb,addr=0x40000000,force-raw=on -device loader,file=zcu102-root-aarch64.dtb,addr=0x04000000,
 force-raw=on -device loader,file=/home/hangqi-ren/Image,addr=0x00200000,force-raw=on -drive if=sd,format=raw,index=1,
 file=rootfs.ext4' 
